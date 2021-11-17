@@ -21,10 +21,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('posts', [PostsController::class, 'index'])->name('posts.index');
 Route::get('posts/{id}', [PostsController::class, 'show'])->name('posts.show');
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard.index');
+//後台管理
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('/', ['as' => 'admin.dashboard.index', 'uses' => 'AdminDashboardController@index']);
 
-    Route::get('posts', [AdminPostsController::class, 'index'])->name('admin.posts.index');
-    Route::get('posts/create', [AdminPostsController::class, 'create'])->name('admin.posts.create');
-    Route::get('posts/{id}/edit', [AdminPostsController::class, 'edit'])->name('admin.posts.edit');
+    Route::get('posts'          , ['as' => 'admin.posts.index' , 'uses' => 'AdminPostsController@index']);
+    Route::get('posts/create'   , ['as' => 'admin.posts.create' , 'uses' => 'AdminPostsController@create']);
+    Route::get('posts/{id}/edit', ['as' => 'admin.posts.edit'   , 'uses' => 'AdminPostsController@edit']);
 });
