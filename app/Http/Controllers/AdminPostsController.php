@@ -6,8 +6,8 @@ class AdminPostsController extends Controller
 {
     public function index()
     {
-        $post=Post::orderBy('created_at', 'DESC')->get();
-        $data=['posts'=>$post];
+        $posts=Post::orderBy('created_at', 'DESC')->get();
+        $data=['posts'=>$posts];
         return view('admin.posts.index', $data);
     }
 
